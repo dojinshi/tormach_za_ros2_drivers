@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="gripper" default="pivot_gripper"/>
+  <xacro:arg name="build" default="false"/>
+  <xacro:if value="$(arg build)">
+    <xacro:property name="path_prefix" value="$(cwd)/urdf"/>
+  </xacro:if>
+  <xacro:unless value="$(arg build)">
+    <xacro:property name="path_prefix" value="$(find za6_tools)/urdf"/>
+  </xacro:unless>
+
+  <xacro:include filename="${path_prefix}/$(arg gripper)_macro.xacro"/>
+
+  <!-- Moveit Studio requires a link name called manual_grasp_link to
+       perform quick tasks such as inspect surface -->
+  <link name="manual_grasp_link"/>
+  <link name="tool0"/>
+  <joint name="tool0_joint" type="fixed">
+    <parent link="manual_grasp_link"/>
+    <child link="tool0"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <xacro:attribute name="name" value="za6_$(arg gripper)"/>
+  <xacro:element
+      xacro:name="xacro:$(arg gripper)_macro"
+      prefix="$(arg prefix)"
+      connected_to="$(arg prefix)tool0"/>
+</robot>

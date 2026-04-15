@@ -1,0 +1,19 @@
+---
+repositories:
+  hal_ros_control:
+    type: git
+    url: https://github.com/tormach/hal_ros_control.git
+    version: humble-devel
+  hw_device_mgr:
+    type: git
+    # url: https://github.com/tormach/hw_device_mgr.git
+    # version: humble-devel
+    url: https://github.com/zultron/hw_device_mgr.git
+    version: zultron/2025-08-04_ros2_fixes-dev
+  ros2_control_demos:
+    # FIXME:  hal_ros_control hal_rrbot_control uses
+    # ros2_control_demos with patches to parameterize the ros2_control
+    # hardware interface plugin.
+    type: git
+    url: https://github.com/zultron/ros2_control_demos.git
+    version: zultron/2023-04-14-humble-dev-parameterize-hardware-plugin
